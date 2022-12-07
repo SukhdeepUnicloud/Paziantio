@@ -1,0 +1,23 @@
+{
+    "Home":"Home",
+    "Dashboards": "Dashboards",
+    "add_company": "Add Company",
+    "company_details":"Company Details",
+    "add_location": "Add Location",
+    "location":"Location",
+    "location_details":"Location Details",
+    "add_room": "Add Room",
+    "room": "Room",
+    "room_details": "Room Details",
+    "add_feature":"Add Feature",
+    "feature":"Feature",
+    "feature_detail":"Feature Details",
+    "all_company": "All Company",
+    "all_location": "All Location",
+    "all_room": "All Room",
+    "all_feature":"All Feature",
+    "all_users":"All Users",
+    "role":"Role",
+    "profile":"Profile",
+    "sign_out":"Sign Out"
+  }

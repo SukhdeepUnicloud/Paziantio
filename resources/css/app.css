@@ -1,0 +1,6 @@
+.form-control.form-control-solid {
+    background-color: #efefef;
+}
+.btn-group-sm>.btn:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon), .btn:not(.btn-outline):not(.btn-dashed):not(.border-hover):not(.border-active):not(.btn-flush):not(.btn-icon).btn-sm {
+    padding: calc(0.35rem + 0px) calc(1rem + 0px) !important;
+}

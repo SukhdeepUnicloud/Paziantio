@@ -22,7 +22,7 @@
             <!--end::Page title-->
             <!--begin::Actions-->
             <div class="d-flex align-items-center py-1">             
-                <router-link to="/add_company" class="btn btn-primary btn-md align-self-center"><i class="fa fa-plus"></i>Add Company</router-link>
+                <router-link to="/add_company" class="btn btn-sm btn-primary btn-md align-self-center"><i class="fa fa-plus"></i>Add Company</router-link>
                 
                 <!--begin::Filter-->
                 <div class="me-2">
@@ -305,15 +305,18 @@ export default {
                 this.errors = error.response.data;
             })
         },
-        deleteLocations(uuid){
-            axios.post('/api/deleteCompany/'+uuid).then(()=>{
+        deleteLocations(uuid) {
+			axios.post('/api/deleteCompany/'+uuid).then(response => {
+               
+				if(response.data==1)
+				{
+                toastr.warning('Company Delete Successfully');
                 this.$router.push({
-                    name: 'all_companies'
+                    name: 'add_company'
                 });
-            }).catch(error=>{
-                this.errors = error.response.data;
-            })
-        }, 
+				}
+	})
+},
     },
     mounted() {
         console.log(this.loadData());

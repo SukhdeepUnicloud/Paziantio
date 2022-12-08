@@ -129,11 +129,11 @@ export default {
                     headers: { 'content-type': 'multipart/form-data' }
                 }
             axios.post('/api/updateRooms/'+ this.$route.params.uuid,this.rooms,config).then(() => {
-               // alert('Upadate Successfully');
-                console.log('saved');
+                toastr.success('Update Successfully');
                 this.$router.push({
                     name: 'all_rooms'
                 });
+          
             }).catch(error => {
                 this.errors = error.response.data;
             })

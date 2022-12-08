@@ -17,7 +17,9 @@ class LocationController extends Controller
      */
     public function index()
     {
-        $locations = Location::get();
+        $locations =Location::join('companies', 'companies.uuid', '=', 'locations.company_id')
+        ->select('locations.*','companies.name as cname')
+        ->get();
        
         return response()->json($locations, 200);
         //
@@ -122,21 +124,15 @@ class LocationController extends Controller
     {
         $post = Location::where('uuid','=',$uuid)->first();
         $post->delete();
-        return response()->json('Location deleted Successfully');
+        $reponse=1;
+        return response()->json($reponse);
         //
     }
     
     public function fetch_related_locations($uuid)
     {
         $location = Location::where('company_id','=',$uuid)->get();
-        $html='';
-        foreach($location as $list)
-        {
-        $html.='<option value="'.$list->uuid.'">'.$list->name.'</option>';
-        }
-        echo $html;
-
-       return response()->json($html);
+       return response()->json($location);
     }
 
 }

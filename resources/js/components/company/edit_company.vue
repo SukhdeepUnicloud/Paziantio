@@ -254,7 +254,7 @@ export default {
                 data.append('register',this.company.register);
                 axios.post('/api/updateCompany/'+ this.$route.params.uuid,data,config)
                     .then(()=>{
-                        alert('company Create Successfully')
+                        toastr.success('Update Successfully');
                 this.$router.push({
                     name: 'all_companies'
                 });

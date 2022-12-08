@@ -50,7 +50,7 @@
 						<input id="email" type="email" class="form-control  bg-transparent" name="email" required
 							autocomplete="email" autofocus placeholder="Enter your email" v-model="item.email" />
 						<!--end::Email-->
-
+						{{success}}
 						<br>
 
 							<div class="text-danger" style="display:none;" id="emptyField">

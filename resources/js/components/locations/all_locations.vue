@@ -21,7 +21,7 @@
             <!--begin::Actions-->
             <div class="d-flex align-items-center py-1">
                 <!--begin::Daterange-->
-                <router-link to="/add_location" class="btn btn-primary btn-md align-self-center"><i class="fa fa-plus"></i>Add Location</router-link>
+                <router-link to="/add_location" class="btn btn-sm btn-primary btn-md align-self-center"><i class="fa fa-plus"></i>Add Location</router-link>
                 <!--begin::Filter-->
                 <div class="me-2">
                     <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_633e7b1056a6d">
@@ -134,7 +134,7 @@
                             <!--begin::Table body-->
                             <tbody class="text-gray-600 fw-semibold">
                                 <!--begin::Table row-->
-                                <tr v-for="locations in All_locations">
+                                <tr v-for="locations in All_locations" :key="locations.uuid">
                                     <td><span> {{ locations.cname }} </span></td>
                                     <td><span> {{ locations.name }} </span></td>
                                     <td><span> {{ locations.address_street }} </span></td>
@@ -270,10 +270,10 @@ export default {
                             }
                         },
                         lengthMenu: [
-                            [5,10, 25, 50, -1],
-                            [5,10, 25, 50, "All"],
+                            [10, 25, 50, -1],
+                            [10, 25, 50, "All"],
                         ],
-                        pageLength: 5,
+                        pageLength: 10,
                         dom: '<"float-left"B><"float-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
                         pagingType: 'full_numbers',
                         processing: true,
@@ -292,14 +292,17 @@ export default {
             })
         },
         deleteLocations(uuid) {
-            axios.post('/api/deleteLocations/'+uuid).then(()=>{
+			axios.post('/api/deleteLocations/'+uuid).then(response => {
+               
+				if(response.data==1)
+				{
+                toastr.warning('Location Delete Successfully');
                 this.$router.push({
                     name: 'add_location'
                 });
-            }).catch(error=>{
-                this.errors = error.response.data;
-            })
-        },       
+				}
+	})
+},
     },
     mounted() {
         console.log(this.loadData());

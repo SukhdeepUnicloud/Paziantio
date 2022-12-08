@@ -43,7 +43,7 @@ class CompanyController extends Controller
     public function store(Request $request)
     {     $request->validate([
             
-        'name' => 'required|min:5',
+        'name' => 'required',
         'description' => 'required',
         'address_street' => 'required',
         'address_street_no' => 'required',
@@ -52,7 +52,6 @@ class CompanyController extends Controller
         'phone' => 'required',
         'vat_no' => 'required',
         'tax_no' => 'required',
-        'file' => 'required',
         'website' => 'required',
         'company_type' => 'required',
         'register' => 'required',
@@ -168,7 +167,8 @@ class CompanyController extends Controller
     {
         $company = Company::where('uuid','=',$uuid)->first();
         $company->delete();
-        return response()->json('Company deleted Successfully');
+        $reponse=1;
+        return response()->json($reponse);
         
     }
     public function formSubmit(Request $request)

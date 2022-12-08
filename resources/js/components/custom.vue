@@ -19,9 +19,7 @@
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-gray-600">Form</li>
                 <!--end::Item-->
-                <!--begin::Item-->
-                <li class="breadcrumb-item text-gray-500">Overview</li>
-                <!--end::Item-->
+             
              </ul>
              <!--end::Breadcrumb-->
           </div>
@@ -156,11 +154,9 @@
         },
         methods: {
             save() {
-                axios.post('/api/createTableColumns', this.myvalue).then((response) => {
-        
-        console.log(response.data);
-    
-    }).catch(error => {
+                axios.post('/api/createTableColumns', this.myvalue).then(
+                  alert('Coloums Add Sucessfully')
+                ).catch(error => {
         this.errors = error.response.data;
     })
             },

@@ -41,8 +41,8 @@ class FeatureController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'description' => 'required',
+            'name' => 'required|min:5|unique:features',
+            'description' => 'required|min:40',
         ]);
 
         $uuid = Str::uuid()->toString();
@@ -85,6 +85,7 @@ class FeatureController extends Controller
      */
     public function update(Request $request, Feature $feature,$uuid)
     {
+       
         $feature = Feature::where('uuid','=',$uuid)->first();
         $feature->name = $request->get('name');
        $feature->description = $request->get('description');
@@ -104,6 +105,7 @@ class FeatureController extends Controller
     {
         $feature = Feature::where('uuid','=',$uuid)->first();
         $feature->delete();
-        return response()->json('Feature deleted Successfully');
+        $response =1;
+        return response()->json($response);
     }
 }

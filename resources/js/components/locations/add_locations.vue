@@ -28,7 +28,7 @@
             <!--end::Page title-->
             <!--begin::Actions-->
             <div class="d-flex align-items-center py-1">
-                <router-link to="/all_locations" class="btn btn-primary btn-md align-self-center">{{ $t("all_location") }}</router-link>              
+                <router-link to="/all_locations" class="btn btn-sm btn-primary btn-md align-self-center">{{ $t("all_location") }}</router-link>              
             </div>
             <!--end::Actions-->
         </div>
@@ -225,8 +225,7 @@ export default {
     methods: {
         save() {
             axios.post('/api/addlocation', this.item).then(() => {
-                alert('Location Create Successfully');
-                console.log('saved');
+                toastr.success('Locations Create Successfully');
                 this.$router.push({
                     name: 'all_locations'
                 });

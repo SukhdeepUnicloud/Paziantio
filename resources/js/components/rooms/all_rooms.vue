@@ -19,7 +19,7 @@
             <!--end::Page title-->
             <!--begin::Actions-->
             <div class="d-flex align-items-center py-1">
-                <router-link to="/add_room" class="btn btn-primary btn-md align-self-center"><i class="fa fa-plus"></i>Add Rooms</router-link>
+                <router-link to="/add_room" class="btn btn-sm btn-primary btn-md align-self-center"><i class="fa fa-plus"></i>Add Rooms</router-link>
                 <!--begin::Filter-->
                 <div class="me-2">
                     <div class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_633e7b1056a6d">
@@ -270,10 +270,10 @@ export default {
                             }
                         },
                         lengthMenu: [
-                            [5,10, 25, 50, -1],
-                            [5,10, 25, 50, "All"],
+                            [10, 25, 50, -1],
+                            [10, 25, 50, "All"],
                         ],
-                        pageLength: 5,
+                        pageLength: 10,
                         dom: '<"float-left"B><"float-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
                         pagingType: 'full_numbers',
                         processing: true,
@@ -293,14 +293,18 @@ export default {
             })
         },
         deleteRooms(uuid) {
-            axios.post('/api/deleteRooms/'+uuid).then(()=>{    
+			axios.post('/api/deleteRooms/'+uuid).then(response => {
+               
+				if(response.data==1)
+				{
+                toastr.warning('Rooms Delete Successfully');
                 this.$router.push({
-                    name: 'all_rooms'
+                    name: 'add_room'
                 });
-            }).catch(error=>{
-                this.errors = error.response.data;
-            })
-        },
+				}
+	})
+},
+     
     },
     mounted() {
         console.log(this.loadData());

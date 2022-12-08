@@ -25,8 +25,8 @@ class RoomController extends Controller
      */
     public function index()
     {
-        $rooms =Room::join('companies', 'companies.id', '=', 'rooms.id')
-        ->join('locations', 'locations.id', '=', 'rooms.id')
+        $rooms =Room::join('companies', 'companies.uuid', '=', 'rooms.company_id')
+        ->join('locations', 'locations.uuid', '=', 'rooms.location_id')
         ->select('rooms.*','companies.name as cname','locations.name as locname')
         ->get();
         return response()->json($rooms, 200);
@@ -62,7 +62,7 @@ class RoomController extends Controller
         Room::create([
             'uuid'=>$uuid,
             'company_id'=>$request['company_id'],
-            'location_id'=>$request['company_id'],
+            'location_id'=>$request['location_id'],
             'name' =>$request['description'],
             'description' => $request['description'],
             'capacity' => $request['capacity'],
@@ -123,6 +123,7 @@ class RoomController extends Controller
     {
         $room = Room::where('uuid','=',$uuid)->first();
         $room->delete();
-        return response()->json('Room deleted Successfully');
+        $response =1;
+        return response()->json($response);
     }
 }

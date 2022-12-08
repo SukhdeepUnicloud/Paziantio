@@ -44,16 +44,7 @@
 					</div>
 					<p></p>
 
-					<input type="text" class="form-control" name="token" v-model="item.token">
-
-					<input id="email" class="form-control" type="email"   v-model="item.email" autofocus>
-
-
-					<div v-for="(errorArray, index) in errors" :key="index">
-						<div class="text-danger" v-if="errorArray.email != null">
-							The Email Field is Required
-						</div>
-					</div>
+			
 
 					<p></p>
 					<input id="password" placeholder='Password' type="password" class="form-control" name="password"
@@ -105,10 +96,12 @@ export default {
 	data() {
 		return {
 
-			errors: "",			
+			errors: "",	
+			token_data: this.$route.params.token,
+			email_data: this.$route.params.email,		
 			item: {
-				token: "",
-				email: "",
+				token: this.$route.params.token,
+				email: this.$route.params.email,
 				password: "",
 				confirm_password: ""
 			}
@@ -119,7 +112,7 @@ export default {
 			axios.post('/api/update_password', this.item).then(response => {
 				if(response.data==1)
 				{
-					alert('Password Update Successfully')
+					this.$router.push({ name: 'success_password' });
 				}
 				else
 				{

@@ -34,7 +34,7 @@
   
                 <!--end::Filter-->
                 <!--begin::Button-->
-                <router-link to="/all_feature" class="btn btn-primary btn-md align-self-center">{{$t("all_feature")}}</router-link>
+                <router-link to="/all_feature" class="btn btn-sm btn-primary btn-md align-self-center">{{$t("all_feature")}}</router-link>
                 <!--end::Button-->
             </div>
             <!--end::Actions-->
@@ -128,12 +128,7 @@ export default {
     methods: {
         save() {
             axios.post('/api/addfeature', this.feature).then(() => {
-                alert('Feature Create Successfully');
-                console.log('saved');
-                this.$router.push({
-                    name: 'all_feature'
-                });
-
+                toastr.success('Feature Create Successfully');
             }).catch(error => {
                 this.errors = error.response.data;
             })

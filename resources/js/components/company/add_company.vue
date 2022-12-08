@@ -29,7 +29,7 @@
             <!--begin::Actions-->
             <div class="d-flex align-items-center py-1">
                 <!--begin::Button-->
-                <router-link to="/all_companies" class="btn btn-primary btn-md align-self-center">{{ $t("all_company") }}</router-link>
+                <router-link to="/all_companies" class="btn btn-sm btn-primary btn-md align-self-center">{{ $t("all_company") }}</router-link>
                 <!--end::Button-->
             </div>
             <!--end::Actions-->
@@ -181,11 +181,6 @@
                             <label class="col-lg-4 fw-semibold text-muted required">Logo </label>
                             <div class="col-lg-8">
                                 <input type="file" class="form-control" v-on:change="onChange">
-                                <div v-for="(errorArray, index) in errors" :key="index">
-                                <div class="text-danger" v-if="errorArray.logo != null">
-                                    {{errorArray.logo}}
-                                </div>
-                                </div>
                             </div>
                         </div>
                         <div class="row mb-7">
@@ -310,10 +305,11 @@ export default {
                 data.append('register',this.register);
                 axios.post('/api/addcompany', data,config)
                     .then(()=>{
-                        alert('Company Create Successfully')
-                this.$router.push({
+                        toastr.success('Company Create Successfully');
+                        this.$router.push({
                     name: 'all_companies'
                 });
+             
             }).catch(error=>{
                 this.errors = error.response.data;
             })

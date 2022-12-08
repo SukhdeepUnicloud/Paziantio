@@ -3,8 +3,14 @@ import { createApp } from 'vue';
 
 import * as VueRouter from 'vue-router';
 import { createI18n } from 'vue-i18n'
+import Toast from "vue-toastification";
+import "vue-toastification/dist/index.css";
 const app = createApp({})
-
+const options = {
+    position: 'top-center',
+    duration : 2000,
+    theme: "toasted"
+};
 
 import messages from '@intlify/vite-plugin-vue-i18n/messages'
 const i18n = createI18n({
@@ -40,7 +46,7 @@ import edit_locations from './components/locations/edit_locations.vue'
 import add_company from './components/company/add_company.vue'
 import all_companies from './components/company/all_companies.vue'
 import edit_company from './components/company/edit_company.vue'
-import add_room from './components/rooms/add_room_model.vue'
+import add_room from './components/rooms/add_room.vue'
 import all_rooms from './components/rooms/all_rooms.vue'
 import edit_rooms from './components/rooms/edit_rooms.vue'
 import add_feature from './components/features/add_feature.vue'
@@ -250,6 +256,7 @@ const router = VueRouter.createRouter({
 });
 app.use(router);
 app.use(i18n);
+app.use(Toast, options);
 app.component('login', login);
 app.component('register', register);
 app.component('navbar', navbar);

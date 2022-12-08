@@ -20,7 +20,7 @@
             <!--end::Page title-->
             <!--begin::Actions-->
             <div class="d-flex align-items-center py-1">
-                <router-link to="/add_feature" class="btn btn-primary btn-md align-self-center"><i class="fa fa-plus"></i>Add Feature</router-link>
+                <router-link to="/add_feature" class="btn btn-sm btn-primary btn-md align-self-center"><i class="fa fa-plus"></i>Add Feature</router-link>
                 <!--begin::Filter-->
                 <div class="me-2">
                     <!--begin::Menu-->
@@ -263,10 +263,10 @@ export default {
                             }
                         },
                         lengthMenu: [
-                            [5,10, 25, 50, -1],
-                            [5,10, 25, 50, "All"],
+                            [10, 25, 50, -1],
+                            [10, 25, 50, "All"],
                         ],
-                        pageLength: 5,
+                        pageLength:10,
                         dom: '<"float-left"B><"float-right"f>rt<"row"<"col-sm-4"l><"col-sm-4"i><"col-sm-4"p>>',
                         pagingType: 'full_numbers',
                         processing: true,
@@ -286,14 +286,18 @@ export default {
             })
         },
         deleteFeature(uuid) {
-            axios.post('/api/deleteFeature/'+uuid).then(()=>{
+			axios.post('/api/deleteFeature/'+uuid).then(response => {
+               
+				if(response.data==1)
+				{
+                toastr.warning('Feature Delete Successfully');
                 this.$router.push({
                     name: 'add_feature'
                 });
-            }).catch(error=>{
-                this.errors = error.response.data;
-            })
-        },
+				}
+	})
+},
+  
     },
     mounted() {
         console.log(this.loadData());

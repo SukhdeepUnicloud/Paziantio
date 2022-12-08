@@ -167,7 +167,7 @@ export default {
                     headers: { 'content-type': 'multipart/form-data' }
                 }
             axios.post('/api/updateLocation/'+ this.$route.params.uuid,this.location,config).then(() => {
-               // alert('Upadate Successfully');
+                toastr.success('Update Successfully');
                 console.log('saved');
                 this.$router.push({
                     name: 'all_locations'

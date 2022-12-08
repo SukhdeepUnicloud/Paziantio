@@ -54,7 +54,14 @@
                             <div class="col-lg-8">
                                 <!-- <span class="fw-bold fs-6 text-gray-800">Max Smith</span> -->
                                 <input type="text" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="" v-model="this.feature.name" />
+                                <div v-for="(errorArray, index) in errors" :key="index">
+                                <div class="text-danger" v-if="errorArray.name != null">
+                                    {{errorArray.name}}
+                                </div>
                             </div>
+                            </div>
+
+                           
                         </div>
                         <!--end::Row-->
                         <!--begin::Input group-->
@@ -62,6 +69,11 @@
                             <label class="col-lg-4 fw-semibold text-muted">Description</label>
                             <div class="col-lg-8">
                                 <textarea  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" rows="4" cols="50" v-model="this.feature.description"> </textarea>
+                                <div v-for="(errorArray, index) in errors" :key="index">
+                                <div class="text-danger" v-if="errorArray.description != null">
+                                    {{errorArray.description}}
+                                </div>
+                            </div>
                             </div>
                         </div>
                         <!--end::Input group-->
@@ -102,7 +114,8 @@ export default {
                 name: "",
                 description: "",
                
-            }
+            },
+            errors: null,
         }
     },
     methods: {
@@ -111,7 +124,7 @@ export default {
                     headers: { 'content-type': 'multipart/form-data' }
                 }
             axios.post('/api/updateFeature/'+ this.$route.params.uuid,this.feature,config).then(() => {
-               // alert('Upadate Successfully');
+                toastr.success('Update Successfully');
                 console.log('saved');
                 this.$router.push({
                     name: 'all_feature'

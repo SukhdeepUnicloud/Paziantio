@@ -29,7 +29,7 @@
             <!--begin::Actions-->
             <div class="d-flex align-items-center py-1">
                 <!--begin::Button-->
-                <router-link to="/all_rooms" class="btn btn-primary btn-md align-self-center">{{$t("all_room")}}</router-link> 
+                <router-link to="/all_rooms" class="btn btn-sm btn-primary btn-md align-self-center">{{$t("all_room")}}</router-link> 
                 <!--end::Button-->
             </div>
             <!--end::Actions-->
@@ -69,10 +69,11 @@
                                    
                                 </div>
                                 
-								<select aria-label="Select a Country" data-control="select2"
-									data-placeholder="Select Company"
-									class="form-select form-select-solid form-select-lg fw-semibold" v-model="this.rooms.company_id">
-									<option v-for="companies in All_companies" :value="companies.uuid" :key="companies.id">{{ companies.name }}</option>
+								<select 
+                               
+									data-placeholder="Select Company" class="form-select form-select-solid form-select-lg fw-semibold" aria-label="Select a Country" @change="onChange($event)"  v-model="this.rooms.company_id">
+                                
+                                    <option selected v-for="companies in All_companies" :value="companies.uuid" :key="companies.id">{{ companies.name }}</option>
 								</select>
                                
 							</div>
@@ -96,11 +97,11 @@
                                    
                                 </div>
                                 
-								<select aria-label="Select a Country" data-control="select2"
+								<select  data-control="select2"
 									data-placeholder="Select Locations"
 									class="form-select form-select-solid form-select-lg fw-semibold" v-model="this.rooms.location_id">
 
-									<option v-for="locations in All_locations" :value="locations.uuid" :key="locations.id">{{ locations.name }}</option>
+									<option v-for="locations in locat" :value="locations.uuid" :key="locations.uuid">{{ locations.name }}</option>
 								</select>
                                 
 							</div>
@@ -184,7 +185,8 @@ export default {
         user: [],
         companies: [],
         All_companies: [],
-        locations: [],
+        locat: [],
+        matched_locations:[],
         All_locations: [],
             rooms: {
                 company_id:"",
@@ -198,10 +200,21 @@ export default {
         }
     },
     methods: {
+        onChange(e) {
+            const locations_data = e.target.value;
+            axios.get('/api/fetch_locations/'+ locations_data).then((response) => {
+                        this.locat = response.data 
+                  //  alert(response.data);
+                
+                // this.All_companies = response.data;
+            }).catch(error => {
+                this.errors = error.response.data;
+            })
+            //   console.log(locations_data);
+          },
         save() {
             axios.post('/api/addrooms', this.rooms).then(() => {
-                alert('Room Create Successfully');
-                console.log('saved');
+                toastr.success('Rooms Create Successfully');
                 this.$router.push({
                     name: 'all_rooms'
                 });
@@ -224,11 +237,14 @@ export default {
             })
         },
     },
-    mounted() {
+    async mounted() {
         console.log(this.getCompanies());
         console.log(this.getLocations());
         console.log('Component mounted.')
         document.title = "Physio App | Add Rooms";  
+        const get_related_location =await axios.get("http://127.0.0.1:8000/api/fetch_locations/075c5685-7647-4c43-8880-139c0cf8460e");
+        this.matched_locations=get_related_location.data;
+        console.log(get_related_location);
     }
 }
 </script>
